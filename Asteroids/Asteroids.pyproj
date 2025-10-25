@@ -21,7 +21,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CircleShape.py">
+    <Compile Include="asteroid.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asteroidfield.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="circleshape.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="constants.py" />

@@ -1,4 +1,6 @@
 import pygame
+from asteroidfield import AsteroidField
+from asteroid import Asteroid
 from constants import *
 from player import Player
 
@@ -12,10 +14,28 @@ def main():
     #Create the game window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    #Create a clock to manage the frame rate
     clock = pygame.time.Clock()
     dt = 0
 
+    
+    #Create sprite groups for updatable and drawable objects (player, asteroids, bullets)
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
+    #Set the containers for the Player class
+    #This ensures that any new Player instance will be added to these groups automatically
+    Player.containers = (updatable, drawable)
+    #Set the containers for the Asteroid class
+    #This ensures that any new Asteroid instance will be added to these groups automatically
+    Asteroid.containers = (asteroids, updatable, drawable)
+    #Set the containers for the AsteroidField class
+    AsteroidField.containers = (updatable)
+
+    #Create the player and asteroid field instances
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    field = AsteroidField()
 
     #Game loop
     while True:
@@ -23,11 +43,22 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        #Start with a black screen
-        screen.fill((0, 0, 0))
+        
+        #Update all updatable objects
+        updatable.update(dt)
 
-        #Draw the player
-        player.draw(screen)
+        #Check for collisions between the player and asteroids
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                print("Game over!")
+                sys.exit()
+
+        #Start with a black screen
+        screen.fill("black")
+
+        #Draw all drawable objects
+        for obj in drawable:
+            obj.draw(screen)
 
         #Update the display
         pygame.display.flip()
