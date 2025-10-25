@@ -57,6 +57,13 @@ def main():
             if asteroid.collides_with(player):
                 print("Game over!")
                 sys.exit()
+            # Check for collisions between shots and asteroids
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    # Remove the shot from screen using built in kill() method
+                    shot.kill()
+                    # Split the asteroid into smaller ones
+                    asteroid.split()
 
         #Start with a black screen
         screen.fill("black")

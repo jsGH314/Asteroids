@@ -10,6 +10,8 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         # Add a rotation field
         self.rotation = 0
+        self.shot_limit = 0
+
 
     # Draw the player as a triangle
     def draw(self, screen):
@@ -26,6 +28,7 @@ class Player(CircleShape):
 
 
     def update(self, dt):
+        self.shot_limit -= dt
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
@@ -46,6 +49,9 @@ class Player(CircleShape):
 
 
     def shoot(self):
+        if self.shot_limit > 0:
+            return
+        self.shot_limit = PLAYER_SHOOT_COOLDOWN
         shot = Shot(self.position.x, self.position.y)
         shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
 
