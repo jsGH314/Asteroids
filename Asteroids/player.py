@@ -2,6 +2,7 @@ from turtle import backward
 import pygame
 from constants import *
 from circleshape import CircleShape
+from shot import Shot
 
 
 class Player(CircleShape):
@@ -39,6 +40,15 @@ class Player(CircleShape):
         if keys[pygame.K_s]:  
             # Move backward with -dt
             self.move(dt=-dt)
+        if keys[pygame.K_SPACE]:
+            self.shoot()
+
+
+
+    def shoot(self):
+        shot = Shot(self.position.x, self.position.y)
+        shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+
 
     # A player will look like a triangle, 
     # even though we'll use a circle to represent its hitbox.

@@ -1,8 +1,10 @@
+import sys
 import pygame
 from asteroidfield import AsteroidField
 from asteroid import Asteroid
 from constants import *
 from player import Player
+from shot import Shot
 
 def main():
     print("Starting Asteroids Game...")
@@ -23,6 +25,7 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     #Set the containers for the Player class
     #This ensures that any new Player instance will be added to these groups automatically
@@ -32,6 +35,8 @@ def main():
     Asteroid.containers = (asteroids, updatable, drawable)
     #Set the containers for the AsteroidField class
     AsteroidField.containers = (updatable)
+    #Set the containers for the Shot class
+    Shot.containers = (shots, updatable, drawable)
 
     #Create the player and asteroid field instances
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
