@@ -3,6 +3,7 @@ import pygame
 from constants import *
 from circleshape import CircleShape
 from shot import Shot
+from menu import Menu
 
 
 class Player(CircleShape):
@@ -45,7 +46,8 @@ class Player(CircleShape):
             self.move(dt=-dt)
         if keys[pygame.K_SPACE]:
             self.shoot()
-
+        if keys[pygame.K_ESCAPE]:
+            Menu().pause_menu(pygame.display.get_surface())
 
 
     def shoot(self):
