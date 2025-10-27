@@ -12,6 +12,7 @@ class Player(CircleShape):
         # Add a rotation field
         self.rotation = 0
         self.shot_limit = 0
+        self.lives = PLAYER_LIVES_NORMAL
 
 
     # Draw the player as a triangle

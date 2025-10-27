@@ -6,9 +6,13 @@ from constants import *
 from player import Player
 from shot import Shot
 
-# TODO add main menu and game over screen
+# TODO add game over screen
+# TODO fix delayed import of Menu, maybe move menus to main.py
 # TODO add scoring system
-# TODO add extra lives
+# TODO add extra lives (normal, and a hardcore mode with 1 life)
+# TODO add animated background to main menu (asteroids drifting)
+# TODO add leaderboard system (show high scores)
+# TODO add high score saving/loading (enter name for high score, save to file)
 
 def main():
     print("Starting Asteroids Game...")
@@ -55,7 +59,7 @@ def main():
 
     # Game loop
     while True:
-        # Handle events, like quitting the game
+        # Handle events, like quitting the game (closing the window)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -66,6 +70,7 @@ def main():
         # Check for collisions between the player and asteroids
         for asteroid in asteroids:
             if asteroid.collides_with(player):
+                ###### TODO Trigger game over screen
                 print("Game over!")
                 sys.exit()
             # Check for collisions between shots and asteroids
@@ -90,6 +95,9 @@ def main():
         # Caps the frame rate at 60 FPS and calculates the time delta
         # Divided by 1000 to convert milliseconds to seconds
         dt = clock.tick(60)/1000
+
+
+
 
 
 if __name__ == "__main__":
